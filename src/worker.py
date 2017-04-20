@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import json  # 用于JsonWorker
-
+import time
 from src.lib.oauth.zhihu_oauth import ZhihuClient
 from src.tools.db import DB
 from src.tools.debug import Debug
 from src.tools.http import Http
 from src.tools.match import Match
 from src.tools.type import Type
+from src.tools.config import Config
 
 
 class Worker(object):
@@ -150,9 +151,12 @@ class QuestionWorker(object):
         answer_list = []
         for raw_answer in question.answers:
             counter += 1
+            if counter > Config.max_answer_number:
+                break
             Debug.logger.info(u'正在抓取第{}个回答'.format(counter))
             try:
                 answer, question = Worker.format_raw_answer(raw_answer)
+                time.sleep(Config.time_delay)
             except Exception as e:
                 #   问题/答案不存在，自动跳过
                 continue
