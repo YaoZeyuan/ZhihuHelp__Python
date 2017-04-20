@@ -25,7 +25,8 @@ class Config(object):
     max_book_size_mb = 100  # 单个文件的最大大小(MB, 兆)，超过这个数会自动分卷
     timeout_download_picture = 10  # 多给知乎服务器点时间，批量生成tex太痛苦了- -
     timeout_download_html = 5
-
+    time_delay=3
+    max_answer_number=500
     article_order_by = ' order by article_id asc '  # 文章排序顺序，默认：时间顺序正序
     answer_order_by = ' order by voteup_count desc '  # 答案排序顺序，默认：赞同数降序
     topic_or_collection_answer_order_by = ' '  # 话题/收藏夹中答案排序顺序，默认：按在话题/收藏夹中的顺序排列
